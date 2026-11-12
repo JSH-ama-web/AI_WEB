@@ -41,7 +41,7 @@
 | `quizCount` | 숫자 | 2 / 3 / 5 중 선택 (서버에서 1~5로 제한) |
 
 ### 처리
-- 프론트 `fetch('/api/study')` → Python 서버리스 함수 → Claude Messages API 호출
+- 프론트 `fetch('/api/study')` → Python 서버리스 함수 → 코디세이 AI Gateway를 통한 Claude API 호출
 - 시스템 프롬프트로 "노트에 없는 내용은 지어내지 않기", "JSON 형식으로만 답하기"를 지시
 
 ### 출력
@@ -71,7 +71,7 @@
 | 네트워크 | fetch 실패 | "네트워크 연결을 확인해 주세요." | - |
 
 ## 8. 운영 · 보안 고려
-- API 키는 Vercel 환경 변수 `ANTHROPIC_API_KEY`로만 관리 (코드/README/스크린샷 노출 금지)
+- API 키는 Vercel 환경 변수 `AI_API_KEY`로만 관리 (코드/README/스크린샷 노출 금지)
 - 입력 길이 상한, `max_tokens` 제한, 요청 중 버튼 비활성화로 과금/쿼터 낭비 방지
 - 입력 노트는 서버에 저장하지 않음
 - 키 유출 의심 시: 즉시 폐기 → 재발급 → 환경 변수 교체 → 재배포 → 커밋 이력 정리

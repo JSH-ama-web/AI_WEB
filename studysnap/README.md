@@ -7,7 +7,7 @@
 
 ## 1. 서비스 소개
 시험 기간, 길고 흩어진 강의 노트를 다시 읽기 어려운 대학생을 위한 서비스입니다.
-노트 텍스트를 입력하면 Claude API가 내용을 분석해 복습용 한 장으로 정리합니다.
+노트 텍스트를 입력하면 Claude API (코디세이 AI Gateway)가 내용을 분석해 복습용 한 장으로 정리합니다.
 
 | 페이지 | 내용 |
 |---|---|
@@ -20,7 +20,7 @@
 ## 2. 기술 스택
 - **Frontend:** HTML, CSS, JavaScript (Vanilla, 프레임워크 미사용)
 - **Backend:** Python — Vercel Serverless Functions (`api/` 폴더)
-- **AI:** Anthropic Claude API (Messages API)
+- **AI:** Google Claude API (코디세이 AI Gateway) (generateContent)
 - **배포:** GitHub + Vercel
 
 ## 3. 폴더 구조
@@ -32,7 +32,7 @@ studysnap/
 ├── css/style.css       # 공통 스타일 + 반응형 + 다크 모드
 ├── js/main.js          # 메뉴 토글, 다크 모드
 ├── js/study.js         # 입력 검증, fetch('/api/study'), 결과 표시, 실패 처리
-├── api/study.py        # 서버리스 함수: Claude API 호출
+├── api/study.py        # 서버리스 함수: Claude API (코디세이 AI Gateway) 호출
 ├── images/             # 이미지/스크린샷
 ├── docs/service-plan.md# 서비스 기획서
 ├── requirements.txt    # Python 패키지 목록 (표준 라이브러리만 사용)
@@ -43,7 +43,7 @@ studysnap/
 ## 4. 동작 흐름
 1. 사용자가 `study.html`에서 노트를 입력하고 버튼 클릭
 2. `js/study.js`가 입력값을 검사한 뒤 `fetch('/api/study', { method: 'POST' })`로 전송
-3. `api/study.py`가 환경 변수의 API 키로 Claude API를 호출
+3. `api/study.py`가 환경 변수의 API 키로 Claude API (코디세이 AI Gateway)를 호출
 4. 결과(JSON)를 받아 프론트로 반환 → 화면에 요약/키워드/문제 표시
 
 ## 5. 환경 변수 설정
@@ -51,8 +51,10 @@ API 키는 코드·README·스크린샷에 절대 넣지 않습니다.
 
 | 이름 | 필수 | 설명 |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | ✅ | Claude API 키 (console.anthropic.com에서 발급) |
-| `ANTHROPIC_MODEL` | 선택 | 사용할 모델 이름 (기본값 `claude-haiku-5-5`) |
+| `AI_API_KEY` | ✅ | 코디세이 콘솔(copa.codyssey.kr)에서 발급한 API 키 |
+| `AI_BASE_URL` | ✅ | 콘솔에 안내된 AI Gateway 기본 주소 |
+| `AI_MODEL` | 선택 | 모델 이름 (기본값 `claude-haiku-5-5`) |
+| `AI_API_FORMAT` | 선택 | `anthropic`(기본, `/v1/messages`) 또는 `openai`(`/v1/chat/completions`) |
 
 - **Vercel:** 프로젝트 → Settings → Environment Variables 에 추가 → **Redeploy** 해야 적용됩니다.
 - **로컬:** `.env.example`을 복사해 `.env.local`로 만들고 키 입력 (`.gitignore`에 포함되어 커밋되지 않음).
@@ -71,7 +73,7 @@ vercel dev             # http://localhost:3000
 ### 배포
 1. GitHub에 저장소 push
 2. vercel.com → Add New Project → 저장소 Import (Framework Preset: **Other**)
-3. Environment Variables에 `ANTHROPIC_API_KEY` 입력 → Deploy
+3. Environment Variables에 `AI_API_KEY`, `AI_BASE_URL` 입력 → Deploy
 4. 이후 `git push`할 때마다 자동 재배포
 
 ## 7. 실패 처리
@@ -83,5 +85,5 @@ vercel dev             # http://localhost:3000
 | 중복 클릭 | 요청 중 버튼 비활성화 (불필요한 과금 방지) |
 
 ## 8. 보안 메모
-- 키가 노출되면 즉시 console.anthropic.com에서 **폐기 후 재발급**하고 Vercel 환경 변수를 교체합니다.
+- 키가 노출되면 즉시 코디세이 콘솔에서 **폐기 후 재발급**하고 Vercel 환경 변수를 교체합니다.
 - 실수로 커밋된 경우 키 폐기가 최우선이며, 이후 `git filter-repo` 등으로 이력에서 제거합니다.
