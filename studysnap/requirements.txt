@@ -1,0 +1,4 @@
+# api/study.py 는 Python 표준 라이브러리(json, urllib, http.server)만 사용합니다.
+# 따라서 추가로 설치할 외부 패키지가 없습니다.
+# (Anthropic 공식 SDK를 쓰도록 바꾸면 아래 줄의 주석을 해제하세요)
+# anthropic
