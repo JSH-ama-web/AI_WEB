@@ -3,7 +3,7 @@
 > 강의 노트를 붙여 넣으면 AI가 **요약 · 핵심 키워드 · 확인 문제**를 만들어 주는 복습 도우미 웹 서비스
 
 - **배포 URL:** https://ai-web-qgvu.vercel.app/
-- **GitHub:** https://github.com/(본인 계정)/(저장소 이름)
+- **GitHub:** https://github.com/JSH-ama-web/AI_WEB/
 
 <p align="center">
   <img src="images/screenshot-desktop.png" alt="StudySnap 데스크톱 홈 화면" width="720">
